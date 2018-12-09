@@ -7,7 +7,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:the_bloc_pattern/src/BlocPattern.dart';
+import 'package:the_bloc_pattern/src/BlocMainScreen.dart';
 
 void main() {
   testWidgets('Counter increments smoke test', (WidgetTester tester) async {
