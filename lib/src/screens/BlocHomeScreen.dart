@@ -1,31 +1,14 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
+import 'package:the_bloc_pattern/Blocs/CounterBloc.dart';
+import 'package:the_bloc_pattern/src/interface/BlocProvider.dart';
 
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
-  final String title;
-
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  StreamController<int> _counterController = new StreamController<int>();
-
-  @override
-  void dispose() {
-    super.dispose();
-    _counterController.close();
-  }
-
+class BlocHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final CounterBloc _counterBloc = BlocProvider.of<CounterBloc>(context);
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title),
+        title: Text('BLoC Pattern'),
       ),
       body: Center(
         child: Column(
@@ -35,7 +18,7 @@ class _MyHomePageState extends State<MyHomePage> {
               'You have pushed the button this many times:',
             ),
             new StreamBuilder(
-              stream: _counterController.stream,
+              stream: _counterBloc.outCounter,
               initialData: 0,
               builder: (BuildContext context, AsyncSnapshot snapshot) {
                 return new Text(
@@ -48,7 +31,9 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => _counterController.sink.add(++_counter),
+        onPressed: () {
+          _counterBloc.incrementCounter.add(null);
+        },
         tooltip: 'Increment',
         child: Icon(Icons.add),
       ),
